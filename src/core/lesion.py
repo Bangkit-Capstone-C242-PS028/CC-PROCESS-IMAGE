@@ -36,10 +36,14 @@ def process_skin_lesion(lesion_id: str):
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")
         Image.open(local_image_path).save(processed_image_path)
+        print(f"Saved processed image to {processed_image_path}")
         
         processed_blob_path = storage.get_blob_path(lesion.patientUid, lesion_id, processed=True)
+        print(f"Uploading processed image to {processed_blob_path}")
+
         processed_image_url = storage.upload_blob(processed_image_path, processed_blob_path)
-        
+        print(f"Uploaded processed image to {processed_image_url}")
+
         update_lesion_status(
             lesion_id, 
             SkinLesionStatus.COMPLETED,
