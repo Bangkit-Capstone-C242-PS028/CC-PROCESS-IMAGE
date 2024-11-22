@@ -44,7 +44,7 @@ def update_lesion_status(lesion_id: str, status: str,
                 UPDATE skin_lesions 
                 SET status = :status,
                     classification = :classification,
-                    processedImageUrl = :processed_image_url,
+                    processedImageUrl = :processedImageUrl,
                     processedAt = NOW()
                 WHERE id = :id
             """)
