@@ -59,5 +59,5 @@ def process_skin_lesion(lesion_id: str):
         print(f"Processed image URL: {processed_image_url}")
         
     except Exception as e:
-        print(f"Error processing skin lesion: {str(e)}")
         update_lesion_status(lesion_id, SkinLesionStatus.FAILED)
+        print(f"Error processing skin lesion: {str(e)}")

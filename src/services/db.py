@@ -52,7 +52,7 @@ def update_lesion_status(lesion_id: str, status: str,
                 "id": lesion_id,
                 "status": status,
                 "classification": classification,
-                "processed_image_url": processed_image_url
+                "processedImageUrl": processed_image_url
             })
     except Exception as e:
         print(f"Database update error: {str(e)}")

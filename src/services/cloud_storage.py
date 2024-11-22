@@ -20,7 +20,7 @@ class CloudStorage:
     def upload_blob(self, local_file_path: str, destination_blob_name: str) -> str:
         blob = self.bucket.blob(destination_blob_name)
         blob.upload_from_filename(local_file_path)
-        blob.make_public()
+        # blob.make_public()
         
         return blob.public_url
 
