@@ -6,17 +6,6 @@ import os
 from PIL import Image
 import tempfile
 
-def format_lesion_details(lesion) -> str:
-    return "\n".join([
-        "Processing skin lesion:",
-        f"  ID: {lesion.id}",
-        f"  Patient UID: {lesion.patientUid}",
-        f"  Status: {lesion.status}",
-        f"  Original Image URL: {lesion.originalImageUrl}",
-        f"  Created At: {lesion.createdAt}",
-        f"  Processed At: {lesion.processedAt if lesion.processedAt else 'Not processed'}"
-    ])
-
 def process_skin_lesion(lesion_id: str):
     try:
         storage = CloudStorage()
@@ -26,23 +15,17 @@ def process_skin_lesion(lesion_id: str):
             print(f"No skin lesion found with ID: {lesion_id}")
             return
             
-        print(format_lesion_details(lesion))
-        
         original_blob_path = f"skin-lesions/{lesion.patientUid}/{lesion_id}"
         
         local_image_path = storage.download_blob(original_blob_path)
-        print(f"Downloaded blob to {local_image_path}")
         
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")
         Image.open(local_image_path).save(processed_image_path)
-        print(f"Saved processed image to {processed_image_path}")
         
         processed_blob_path = storage.get_blob_path(lesion.patientUid, lesion_id, processed=True)
-        print(f"Uploading processed image to {processed_blob_path}")
 
         processed_image_url = storage.upload_blob(processed_image_path, processed_blob_path)
-        print(f"Uploaded processed image to {processed_image_url}")
 
         update_lesion_status(
             lesion_id, 
@@ -55,9 +38,7 @@ def process_skin_lesion(lesion_id: str):
         os.remove(processed_image_path)
         
         print(f"Successfully processed lesion {lesion_id}")
-        print(f"Classification: NORMAL")
-        print(f"Processed image URL: {processed_image_url}")
-        
+
     except Exception as e:
         update_lesion_status(lesion_id, SkinLesionStatus.FAILED)
         print(f"Error processing skin lesion: {str(e)}")
