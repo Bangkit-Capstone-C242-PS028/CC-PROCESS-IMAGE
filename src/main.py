@@ -1,7 +1,7 @@
 import base64
 import json
 from flask import Flask, request
-from process_image import process_skin_lesion
+from src.core.lesion import process_skin_lesion
 
 app = Flask(__name__)
 
