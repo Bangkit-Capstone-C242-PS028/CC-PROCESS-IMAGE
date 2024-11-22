@@ -1,5 +1,5 @@
 from datetime import datetime
-from src.models import SkinLesionStatus
+from src.models.skin_lesion import SkinLesionStatus
 from src.services.cloud_storage import CloudStorage
 from src.services.db import fetch_skin_lesion, update_lesion_status
 import os
