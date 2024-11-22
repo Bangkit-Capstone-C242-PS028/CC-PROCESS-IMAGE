@@ -1,5 +1,5 @@
 from datetime import datetime
-from db import connect_with_connector
+from db import connect_unix_socket
 from sqlalchemy import text
 from enum import Enum
 
@@ -10,7 +10,7 @@ class SkinLesionStatus(str, Enum):
 
 def process_skin_lesion(lesion_id: str):
     try:
-        engine = connect_with_connector()
+        engine = connect_unix_socket()
         
         with engine.connect() as conn:
             query = text("SELECT * FROM skin_lesions WHERE id = :id")
