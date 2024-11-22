@@ -54,5 +54,6 @@ def update_lesion_status(lesion_id: str, status: str,
                 "classification": classification,
                 "processedImageUrl": processed_image_url
             })
+            conn.commit()
     except Exception as e:
         print(f"Database update error: {str(e)}")
