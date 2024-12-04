@@ -12,3 +12,4 @@ def feature_extraction(image_array):
     model = Model(inputs=base_model_vgg.input, outputs=output)
 
     features = model.predict(image_array)
+    return features
