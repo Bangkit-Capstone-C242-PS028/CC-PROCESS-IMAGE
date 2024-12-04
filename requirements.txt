@@ -4,7 +4,9 @@ pytest==4.6.11; python_version < "3.0"
 gunicorn==22.0.0
 Werkzeug==3.0.3
 sqlalchemy==2.0.36
-python-dotenv==1.0.1 
-PyMySQL==1.1.1 
-Pillow==11.0.0 
-google-cloud-storage==2.18.2 
+python-dotenv==1.0.1
+PyMySQL==1.1.1
+Pillow==11.0.0
+google-cloud-storage==2.18.2
+tensorflow==2.18.0
+joblib==1.4.2
