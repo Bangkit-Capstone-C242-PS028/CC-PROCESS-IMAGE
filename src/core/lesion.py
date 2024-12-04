@@ -5,7 +5,9 @@ from src.services.db import fetch_skin_lesion, update_lesion_status
 import os
 from PIL import Image
 import tempfile
-from src.models import preprocess, feature_extraction, modelling
+from src.models.preprocess import preprocess
+from src.models.feature_extraction import feature_extraction
+from src.models.modelling import modelling
 
 
 def process_skin_lesion(lesion_id: str):
@@ -22,6 +24,7 @@ def process_skin_lesion(lesion_id: str):
         local_image_path = storage.download_blob(original_blob_path)
         print(local_image_path)
 
+        print("Preproces image")
         image_array, image = preprocess(local_image_path)
         print("Preprocessed image")
         features = feature_extraction(image_array)
