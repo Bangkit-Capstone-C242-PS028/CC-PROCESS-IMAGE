@@ -19,7 +19,7 @@ def process_skin_lesion(lesion_id: str):
 
         original_blob_path = f"skin-lesions/{lesion.patientUid}/{lesion_id}"
 
-        local_image_path = storage.download_blob(original_blob_path, "image.jpg")
+        local_image_path = storage.download_blob(original_blob_path)
 
         image_array, image = preprocess(local_image_path)
         features = feature_extraction(image_array)
