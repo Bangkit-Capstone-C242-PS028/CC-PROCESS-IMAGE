@@ -24,13 +24,9 @@ def process_skin_lesion(lesion_id: str):
         local_image_path = storage.download_blob(original_blob_path)
         print(local_image_path)
 
-        print("Preproces image")
         image_array, image = preprocess(local_image_path)
-        print("Preprocessed image")
         features = feature_extraction(image_array)
-        print("Features extracted")
         prediction = modelling(features)
-        print("Modelled prediction", prediction)
 
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")
