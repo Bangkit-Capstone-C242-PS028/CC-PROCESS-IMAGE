@@ -30,7 +30,7 @@ def process_skin_lesion(lesion_id: str):
 
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")
-        Image.open(image).save(processed_image_path)
+        image.save(processed_image_path)
 
         processed_blob_path = storage.get_blob_path(
             lesion.patientUid, lesion_id, processed=True
