@@ -8,6 +8,7 @@ import tempfile
 from src.models.preprocess import preprocess
 from src.models.feature_extraction import feature_extraction
 from src.models.modelling import modelling
+from src.services.firebase import send_fcm_message
 
 
 def process_skin_lesion(lesion_id: str):
@@ -49,6 +50,12 @@ def process_skin_lesion(lesion_id: str):
 
         os.remove(local_image_path)
         os.remove(processed_image_path)
+
+        send_fcm_message(
+            f"skin-lesions/{lesion.patientUid}",
+            "Skin Lesion Processed",
+            f"Lesion {lesion_id} has been processed successfully.",
+        )
 
         print(f"Successfully processed lesion {lesion_id}")
 
