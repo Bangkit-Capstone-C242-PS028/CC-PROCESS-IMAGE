@@ -52,7 +52,7 @@ def process_skin_lesion(lesion_id: str):
         os.remove(processed_image_path)
 
         send_fcm_message(
-            f"skin-lesions/{lesion.patientUid}",
+            f"{lesion.patientUid}",
             "Skin Lesion Processed",
             f"Lesion {lesion_id} has been processed successfully.",
         )
