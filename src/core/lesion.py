@@ -10,6 +10,16 @@ from src.models.feature_extraction import feature_extraction
 from src.models.modelling import modelling
 from src.services.firebase import send_fcm_message
 
+CLASS_DESCRIPTION_MAPPING = {
+    0: "Description for class 1",
+    1: "Description for class 2",
+    2: "Description for class 3",
+    3: "Description for class 4",
+    4: "Description for class 5",
+    5: "Description for class 6",
+    6: "Description for class 7",
+}
+
 
 def process_skin_lesion(lesion_id: str):
     try:
@@ -29,6 +39,9 @@ def process_skin_lesion(lesion_id: str):
         features = feature_extraction(image_array)
         prediction = modelling(features)
 
+        classification = prediction[0]  # Assuming prediction is a list or array
+        description = CLASS_DESCRIPTION_MAPPING.get(classification, "Unknown class")
+
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")
         image.save(processed_image_path)
@@ -44,8 +57,9 @@ def process_skin_lesion(lesion_id: str):
         update_lesion_status(
             lesion_id,
             SkinLesionStatus.COMPLETED,
-            prediction,  # Mock classification
+            classification,
             processed_image_url,
+            description,
         )
 
         os.remove(local_image_path)

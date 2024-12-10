@@ -9,9 +9,7 @@ def connect_unix_socket() -> sqlalchemy.engine.base.Engine:
     db_user = os.environ["DB_USER"]
     db_pass = os.environ["DB_PASS"]
     db_name = os.environ["DB_NAME"]
-    unix_socket_path = os.environ[
-        "INSTANCE_UNIX_SOCKET"
-    ]
+    unix_socket_path = os.environ["INSTANCE_UNIX_SOCKET"]
 
     pool = sqlalchemy.create_engine(
         sqlalchemy.engine.url.URL.create(
@@ -24,6 +22,7 @@ def connect_unix_socket() -> sqlalchemy.engine.base.Engine:
     )
     return pool
 
+
 def fetch_skin_lesion(lesion_id: str):
     try:
         engine = connect_unix_socket()
@@ -34,26 +33,38 @@ def fetch_skin_lesion(lesion_id: str):
         print(f"Database error: {str(e)}")
         return None
 
-def update_lesion_status(lesion_id: str, status: str, 
-                        classification: str = None, 
-                        processed_image_url: str = None):
+
+def update_lesion_status(
+    lesion_id: str,
+    status: str,
+    classification: str = None,
+    processed_image_url: str = None,
+    description: str = None,
+):
     try:
         engine = connect_unix_socket()
         with engine.connect() as conn:
-            query = text("""
+            query = text(
+                """
                 UPDATE skin_lesions 
                 SET status = :status,
                     classification = :classification,
                     processedImageUrl = :processedImageUrl,
+                    description = :description,
                     processedAt = NOW()
                 WHERE id = :id
-            """)
-            conn.execute(query, {
-                "id": lesion_id,
-                "status": status,
-                "classification": classification,
-                "processedImageUrl": processed_image_url
-            })
+            """
+            )
+            conn.execute(
+                query,
+                {
+                    "id": lesion_id,
+                    "status": status,
+                    "classification": classification,
+                    "processedImageUrl": processed_image_url,
+                    "description": description,
+                },
+            )
             conn.commit()
     except Exception as e:
         print(f"Database update error: {str(e)}")
