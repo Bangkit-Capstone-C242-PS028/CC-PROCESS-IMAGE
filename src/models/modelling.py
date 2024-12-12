@@ -3,7 +3,7 @@ import numpy as np
 
 
 def modelling(features):
-    interpreter = tf.lite.Interpreter(model_path="src/model/final_model.tflite")
+    interpreter = tf.lite.Interpreter(model_path="src/models/final_model.tflite")
     interpreter.allocate_tensors()
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
