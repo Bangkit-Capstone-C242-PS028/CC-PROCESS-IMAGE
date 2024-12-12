@@ -4,6 +4,7 @@ import torchvision.transforms as transforms
 from pytorch_grad_cam import GradCAM
 from pytorch_grad_cam.utils.image import show_cam_on_image
 import cv2
+from PIL import Image
 
 # Step 1: Load the pretrained model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -40,4 +41,4 @@ def image_grad_cam(image_path):
             rgb_img_normalized, grayscale_cam, use_rgb=True
         )
 
-    return visualization
+    return Image.fromarray(visualization)

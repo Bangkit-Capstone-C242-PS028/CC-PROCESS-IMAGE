@@ -12,23 +12,23 @@ from src.models.grad_cam import image_grad_cam
 from src.services.firebase import send_fcm_message
 
 CLASSIFICATION_MAPPING = {
-    0: "Class 1",
-    1: "Class 2",
-    2: "Class 3",
-    3: "Class 4",
-    4: "Class 5",
-    5: "Class 6",
-    6: "Class 7",
+    0: "Actinic keratoses and intraepithelial carcinoma",
+    1: "basal cell carcinoma",
+    2: "benign keratosis-like lesions",
+    3: "dermatofibroma ",
+    4: "melanoma",
+    5: "melanocytic nevi",
+    6: "vascular lesions",
 }
 
 CLASS_DESCRIPTION_MAPPING = {
-    0: "Description for class 1",
-    1: "Description for class 2",
-    2: "Description for class 3",
-    3: "Description for class 4",
-    4: "Description for class 5",
-    5: "Description for class 6",
-    6: "Description for class 7",
+    0: "This is a precancerous skin condition that can develop into skin cancer if not treated.",
+    1: "This is a type of skin cancer that originates in the basal cells, which are located in the lower part of the epidermis.",
+    2: "These are noncancerous skin growths that may resemble warts or skin tags.",
+    3: "This is a common, benign skin growth that usually appears as a firm, red or brown bump.",
+    4: "This is a type of skin cancer that develops from melanocytes, the cells that produce melanin.",
+    5: "These are commonly known as moles and are benign growths of melanocytes.",
+    6: "These are abnormalities of the blood vessels in the skin, such as cherry angiomas or spider veins.",
 }
 
 
