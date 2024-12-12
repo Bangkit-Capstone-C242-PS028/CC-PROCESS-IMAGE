@@ -80,7 +80,7 @@ def process_skin_lesion(lesion_id: str):
         send_fcm_message(
             f"{lesion.patientUid}",
             "Skin Lesion Processed",
-            f"Lesion {lesion_id} has been processed successfully.",
+            f"Lesion {lesion_id} has been processed successfully. {prediction[1] * 100}% confident it is {classification}",
         )
 
         print(f"Successfully processed lesion {lesion_id}")
