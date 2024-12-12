@@ -8,7 +8,18 @@ import tempfile
 from src.models.preprocess import preprocess
 from src.models.feature_extraction import feature_extraction
 from src.models.modelling import modelling
+from src.models.grad_cam import image_grad_cam
 from src.services.firebase import send_fcm_message
+
+CLASSIFICATION_MAPPING = {
+    0: "Class 1",
+    1: "Class 2",
+    2: "Class 3",
+    3: "Class 4",
+    4: "Class 5",
+    5: "Class 6",
+    6: "Class 7",
+}
 
 CLASS_DESCRIPTION_MAPPING = {
     0: "Description for class 1",
@@ -35,12 +46,13 @@ def process_skin_lesion(lesion_id: str):
         local_image_path = storage.download_blob(original_blob_path)
         print(local_image_path)
 
-        image_array, image = preprocess(local_image_path)
+        image_array = preprocess(local_image_path)
         features = feature_extraction(image_array)
         prediction = modelling(features)
+        image = image_grad_cam(local_image_path)
 
-        classification = prediction[0]  # Assuming prediction is a list or array
-        description = CLASS_DESCRIPTION_MAPPING.get(classification, "Unknown class")
+        classification = CLASSIFICATION_MAPPING.get(prediction[0], "Unknown class")
+        description = CLASS_DESCRIPTION_MAPPING.get(prediction[0], "Unknown class")
 
         temp_dir = tempfile.mkdtemp()
         processed_image_path = os.path.join(temp_dir, "processed_image.jpg")

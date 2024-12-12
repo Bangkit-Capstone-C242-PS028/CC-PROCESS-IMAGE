@@ -8,4 +8,4 @@ def preprocess(image_path):
     image_array = img_to_array(image)  # Convert to numpy array
     image_array = np.expand_dims(image_array, axis=0)  # Add batch dimension
     image_array = preprocess_input(image_array)  # Preprocess as per VGG16 requirements
-    return image_array, image
+    return image_array
